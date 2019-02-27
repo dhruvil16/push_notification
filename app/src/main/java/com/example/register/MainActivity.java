@@ -28,11 +28,12 @@ public class MainActivity extends AppCompatActivity {
     public void sendPhoneNumber(View view) {
 
 
-        if(ph.equals(""))
+        if(ph.equals(" "))
         {
 
         }
         else{
+
         LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
         View mView = layoutInflaterAndroid.inflate(R.layout.dialog, null);
         AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(this);
