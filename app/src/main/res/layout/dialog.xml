@@ -13,6 +13,7 @@
         android:layout_margin="10dp"
         android:hint="ENTER OTP"
         android:padding="5dp"
+        android:inputType="number"
         android:textSize="30sp" />
 
 
