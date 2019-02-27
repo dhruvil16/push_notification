@@ -1,68 +1,49 @@
 package com.example.register;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.DialogInterface;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class MainActivity extends AppCompatActivity {
 
-    EditText phonenumber;
-    String ph;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        phonenumber = findViewById(R.id.phone_number);
-
-        ph = phonenumber.getText().toString();
-
-
-
-    }
-
-    public void sendPhoneNumber(View view) {
-
-
-        if(ph.equals(" "))
-        {
-
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("myNotification","myNotification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.createNotificationChannel(channel);
         }
-        else{
 
-        LayoutInflater layoutInflaterAndroid = LayoutInflater.from(this);
-        View mView = layoutInflaterAndroid.inflate(R.layout.dialog, null);
-        AlertDialog.Builder alertDialogBuilderUserInput = new AlertDialog.Builder(this);
-        alertDialogBuilderUserInput.setView(mView);
-
-        final EditText mPhoneNumber = (EditText) mView.findViewById(R.id.otp);
-
-        alertDialogBuilderUserInput
-                .setCancelable(false)
-                .setTitle("Register")
-
-                .setPositiveButton("Send", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialogBox, int id) {
-                        String phone_number = mPhoneNumber.getText().toString();
-
-                        if(phone_number.equals(""))
-                        {
-                            // again open dialog and
+        FirebaseMessaging.getInstance().subscribeToTopic("weather")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = "successful";
+                        if (!task.isSuccessful()) {
+                            msg = "fail";
                         }
-
-                        // send phone number and password
+                        Toast.makeText(MainActivity.this, msg , Toast.LENGTH_SHORT).show();
                     }
-
-
                 });
 
-        AlertDialog alertDialogAndroid = alertDialogBuilderUserInput.create();
-        alertDialogAndroid.show();
 
-        }
+
     }
+
+
 }

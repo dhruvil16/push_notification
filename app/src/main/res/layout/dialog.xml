@@ -3,9 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-
-
     <EditText
         android:id="@+id/otp"
         android:layout_width="match_parent"
@@ -15,7 +12,4 @@
         android:padding="5dp"
         android:inputType="number"
         android:textSize="30sp" />
-
-
-
 </LinearLayout>
